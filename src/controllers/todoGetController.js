@@ -47,21 +47,18 @@ module.exports.editById = (req, res) => {
   const { id } = req.params;
   const text = req.body.text;
   const done = req.body.done;
-  console.log(typeof id);
 
-  Todo.findByIdAndUpdate(
-    { _id: id },
-    { text: text, done: done },
-    function (err, res) {
-      if (err) {
-        res.send(err);
-      } else {
-        res.status(200).json({
-          message: "Todo list edited succesfully.",
-        });
-      }
+  Todo.findByIdAndUpdate(id, { text: text, done: done }, function (err, todo) {
+    if (err) {
+      return res.status(500).json({
+        message: "Error updating some of the paramters.",
+      });
+    } else {
+      res.status(200).json({
+        message: "Todo list updated succesfully.",
+      });
     }
-  );
+  });
 };
 
 module.exports.showById = (req, res) => {
