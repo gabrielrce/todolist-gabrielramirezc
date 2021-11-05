@@ -56,12 +56,8 @@ module.exports.editById = (req, res) => {
       if (err) {
         res.send(err);
       } else {
-        Todo.findById(id, function (err, todos) {
-          if (err) {
-            console.log(err);
-          } else {
-            res.send(todos);
-          }
+        res.status(200).json({
+          message: "Todo list edited succesfully.",
         });
       }
     }
@@ -85,7 +81,7 @@ module.exports.delete = (req, res) => {
     if (err) {
       res.send(err);
     } else {
-      res.status(500).json({
+      res.status(200).json({
         message: "Todo list deleted succesfully.",
       });
     }
