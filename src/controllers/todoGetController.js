@@ -48,6 +48,12 @@ module.exports.editById = (req, res) => {
   const text = req.body.text;
   const done = req.body.done;
 
+  if (text.length === 0) {
+    return res.status(500).json({
+      message: "Cannot update text to a blank space.",
+    });
+  }
+
   Todo.findByIdAndUpdate(id, { text: text, done: done }, function (err, todo) {
     if (err) {
       return res.status(500).json({
@@ -57,17 +63,6 @@ module.exports.editById = (req, res) => {
       res.status(200).json({
         message: "Todo list updated succesfully.",
       });
-    }
-  });
-};
-
-module.exports.showById = (req, res) => {
-  const { id } = req.params;
-  Todo.findById(id, function (err, todo) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send(todo);
     }
   });
 };
