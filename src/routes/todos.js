@@ -3,6 +3,9 @@ const router = express.Router();
 
 const todoGetController = require("../controllers/todoGetController");
 
+router.get("/", (req, res) => {
+  res.send("Welcome to the todo list app.");
+});
 router.get("/todos", todoGetController.showAll);
 router.get("/todos/:id", todoGetController.showById);
 router.post("/todos", todoGetController.create);
